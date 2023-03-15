@@ -1,5 +1,5 @@
 body {
-    margin: 0;
+    margin: 0px;
     padding: 0;
     width: 100vw;
     height: 100vh;
@@ -13,8 +13,8 @@ body {
   }
 
   .first-screen {
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -36,7 +36,6 @@ body {
     color: #fff;
     border: none;
     border-radius: 5px;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
     cursor: pointer;
     box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
   }
@@ -46,12 +45,41 @@ body {
   }
 
   .second-screen {
+    width: 100%;
+    height: 100%;
     display: none;
+    user-select: none;
   }
 
   .second-header {
+    padding: 5px;
     font-size: 36px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  .course-selection {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    }
+
+    .course-selection-button:active {
+        background-color: #5cadff;
+      }
+
+  .course-selection-button {
+    display: block;
+    margin: 50px auto;
+    min-height: 75px;
+    width: 95%;
+    font-size: 18px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
   }
   
   /* Media query for larger screens */
@@ -63,6 +91,18 @@ body {
   
     .find-courses-button {
       margin-top: 60px;
+    }
+
+    .find-courses-button:hover {
+        background-color: #5cadff;
+    }
+
+    .course-selection-button {
+        width: 50%;
+    }
+
+    .course-selection-button:hover {
+        background-color: #5cadff;
     }
   }
   
