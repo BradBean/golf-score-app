@@ -1,0 +1,68 @@
+body {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+  }
+  
+  .main-body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    width: 100vw;
+    height: 100vh; 
+  }
+
+  .first-screen {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+  }
+  
+  .first-header {
+    font-size: 36px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  }
+  
+  .find-courses-button {
+    display: block;
+    margin: 30px auto;
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+  }
+
+  .find-courses-button:active {
+    background-color: #5cadff;
+  }
+
+  .second-screen {
+    display: none;
+  }
+
+  .second-header {
+    font-size: 36px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Media query for larger screens */
+  @media (min-width: 768px) {
+    .first-header {
+      font-size: 36px;
+      margin-top: 60px;
+    }
+  
+    .find-courses-button {
+      margin-top: 60px;
+    }
+  }
+  
