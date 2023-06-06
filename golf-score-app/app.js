@@ -3,6 +3,26 @@ window.onload = function() {
     const firstScreen = document.getElementById('first-screen');
     const secondScreen = document.getElementById('second-screen');
     const buttons = document.querySelectorAll('.course-selection-button');
+
+    fetch("https://exquisite-pastelito-9d4dd1.netlify.app/golfapi/courses.json")
+    .then(response => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      return response.json();
+    })
+    .then(data => {
+      if (Array.isArray(data) && data.length >= 3) {
+        document.getElementById("thanksgivingPoint").textContent = data[0].name;
+        document.getElementById("americanFork").textContent = data[1].name;
+        document.getElementById("spanishFork").textContent = data[2].name;
+      } else {
+        throw new Error("Invalid response from API");
+      }
+    })
+    .catch(error => {
+      console.error("Error fetching data:", error);
+    });
   
     function fadeOut(element) {
       element.style.opacity = 0;

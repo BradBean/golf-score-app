@@ -1,0 +1,203 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+    body {
+    margin: 0px;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+  }
+  
+  .main-body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    width: 100vw;
+    height: 100vh; 
+  }
+
+  .first-screen {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+  }
+  
+  .first-header {
+    font-size: 36px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  }
+  
+  .find-courses-button {
+    display: block;
+    margin: 30px auto;
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+  }
+
+  .find-courses-button:active {
+    background-color: #5cadff;
+  }
+
+  .second-screen {
+    width: 100%;
+    height: 100%;
+    display: none;
+    user-select: none;
+  }
+
+  .second-header {
+    padding: 5px;
+    font-size: 36px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  .course-selection {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    }
+
+    .course-selection-button:active {
+        background-color: #5cadff;
+      }
+
+  .course-selection-button {
+    display: block;
+    margin: 50px auto;
+    min-height: 75px;
+    width: 95%;
+    font-size: 18px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+  }
+  
+  /* Media query for larger screens */
+  @media (min-width: 768px) {
+    .first-header {
+      font-size: 36px;
+      margin-top: 60px;
+    }
+  
+    .find-courses-button {
+      margin-top: 60px;
+    }
+
+    .find-courses-button:hover {
+        background-color: #5cadff;
+    }
+
+    .course-selection-button {
+        width: 50%;
+    }
+
+    .course-selection-button:hover {
+        background-color: #5cadff;
+    }
+  }
+  
+    </style>
+    
+    <script>
+window.onload = function() {
+    const firstButton = document.getElementById('find-courses-button');
+    const firstScreen = document.getElementById('first-screen');
+    const secondScreen = document.getElementById('second-screen');
+    const buttons = document.querySelectorAll('.course-selection-button');
+
+    fetch("https://exquisite-pastelito-9d4dd1.netlify.app/golfapi/courses.json")
+  .then(response => {
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    return response.json();
+  })
+  .then(data => {
+    if (Array.isArray(data) && data.length >= 3) {
+      document.getElementById("thanksgivingPoint").textContent = data[0].name;
+      document.getElementById("americanFork").textContent = data[1].name;
+      document.getElementById("spanishFork").textContent = data[2].name;
+    } else {
+      throw new Error("Invalid response from API");
+    }
+  })
+  .catch(error => {
+    console.error("Error fetching data:", error);
+  });
+    
+
+
+
+  
+    function fadeOut(element) {
+      element.style.opacity = 0;
+      element.style.transition = 'opacity 0.5s ease-in-out';
+    }
+  
+    function showScreen(screen) {
+      screen.style.display = 'block';
+      screen.style.opacity = 1;
+      screen.style.transition = 'opacity 0.5s ease-in-out';
+    }
+  
+    function redirectTo(url) {
+      window.location.href = url;
+    }
+  
+    firstButton.addEventListener('click', function() {
+      fadeOut(firstScreen);
+      setTimeout(function() {
+        firstScreen.style.display = 'none';
+        showScreen(secondScreen);
+      }, 500);
+    });
+  
+    buttons.forEach(function(button) {
+      button.addEventListener('click', function() {
+        fadeOut(secondScreen);
+        setTimeout(function() {
+          redirectTo(button.dataset.url);
+        }, 500);
+      });
+    });
+  
+  }
+  
+</script>
+    <title>Golf score app</title>
+</head>
+<body>
+    <div class="main-body">
+        <div class="first-screen" id="first-screen">
+            <h1 class="first-header">Welcome to the Golf Score App</h1>
+            <button class="find-courses-button" id="find-courses-button">Find Courses</button>
+          </div>
+          <div class="second-screen" id="second-screen">
+            <h1 class="second-header">Pick the course's scorecard you want to view</h1>
+            <div class="course-selection">
+                <button id="thanksgivingPoint" class="course-selection-button" data-url="./thanksgiving-point/thanksgivingPoint.html"></button>
+                <button id="americanFork" class="course-selection-button" data-url="./american-fork/americanFork.html"></button>
+                <button id="spanishFork" class="course-selection-button" data-url="./spanish-fork/spanishFork.html"></button>
+            </div>
+          </div>          
+    </div>
+</body>
+</html>

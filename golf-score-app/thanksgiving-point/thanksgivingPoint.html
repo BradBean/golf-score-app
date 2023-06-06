@@ -4,12 +4,69 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <script src="javascript.js"></script>
-    <title>Document</title>
+    <title>Thanksgiving Point Golf Course Scorecard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        #scorecard {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            border-collapse: collapse;
+        }
+
+        #scorecard th, #scorecard td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .hole {
+            background-color: #eee;
+        }
+    </style>
+    <script>
+        window.onload = function() {
+            fetch('https://exquisite-pastelito-9d4dd1.netlify.app/golfapi/course11819.json')
+                .then(response => response.json())
+                .then(data => {
+                    let table = document.getElementById('scorecard');
+                    data.holes.forEach((hole, index) => {
+                        let row = table.insertRow(-1);
+                        let cell1 = row.insertCell(0);
+                        cell1.innerHTML = index + 1;
+                        hole.teeBoxes.forEach(teeBox => {
+                            let cell = row.insertCell(-1);
+                            cell.innerHTML = teeBox.yards + ' yds';
+                        });
+                        let cell2 = row.insertCell(-1);
+                        cell2.innerHTML = 'Par ' + hole.teeBoxes[0].par;
+                    });
+                })
+                .catch(error => console.error('Error:', error));
+        };
+    </script>
 </head>
 <body>
-    thanksgiving point
-
+    <h1>Thanksgiving Point Golf Course Scorecard</h1>
+    <table id="scorecard">
+        <tr>
+            <th class="hole">Hole</th>
+            <th>Pro (yards)</th>
+            <th>Champion (yards)</th>
+            <th>Men (yards)</th>
+            <th>Women (yards)</th>
+            <th class="hole">Par</th>
+        </tr>
+    </table>
 </body>
 </html>
