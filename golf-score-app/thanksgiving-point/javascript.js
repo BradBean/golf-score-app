@@ -1,3 +1,6 @@
+let playerCount = 0;
+let playerNames = [];
+
 window.onload = function() {
     fetch('https://exquisite-pastelito-9d4dd1.netlify.app/golfapi/course11819.json')
         .then(response => response.json())
@@ -42,3 +45,38 @@ window.onload = function() {
         })
         .catch(error => console.error('Error:', error));
 };
+
+function addUser() {
+    if (playerCount >= 4) {
+        return;
+    }
+    playerCount++;
+    let table = document.getElementById('scorecard');
+    let playerRow = table.insertRow(-1);
+    let nameCell = playerRow.insertCell(0);
+    nameCell.innerHTML = '<input type="text" placeholder="Player ' + playerCount + '" id="name-' + playerCount + '" onchange="updatePlayerName(' + playerCount + ')">';
+    for (let i = 1; i <= 18; i++) {
+        let cell = playerRow.insertCell(i);
+        cell.innerHTML = '<input type="number" min="0" id="score-' + playerCount + '-' + i + '" onchange="calculateTotal(' + playerCount + ')">';
+    }
+    if (playerCount >= 4) {
+        document.getElementById('addUserButton').disabled = true;
+    }
+}
+
+function updatePlayerName(playerNumber) {
+    let nameInput = document.getElementById('name-' + playerNumber);
+    playerNames[playerNumber - 1] = nameInput.value || 'Player ' + playerNumber;
+    calculateTotal(playerNumber);
+}
+
+function calculateTotal(playerNumber) {
+    let total = 0;
+    for (let i = 1; i <= 18; i++) {
+        let scoreInput = document.getElementById('score-' + playerNumber + '-' + i);
+        if (scoreInput.value) {
+            total += parseInt(scoreInput.value);
+        }
+    }
+    document.getElementById('total-' + playerNumber).innerText = (playerNames[playerNumber - 1] || 'Player ' + playerNumber) + '\'s Total: ' + total;
+}
