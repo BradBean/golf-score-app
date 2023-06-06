@@ -1,69 +1,44 @@
 window.onload = function() {
-  // Define the number of rows and columns for the table
-  let numRows = 4;
-  let numCols = 10;
-
-  // Create an array of header column names
-  let headerColumns = ["Topic"];
-  for (let i = 1; i < numCols; i++) {
-      if (i < 10) {
-          headerColumns.push(i);
-      } else {
-          headerColumns.push(i.toString());
-      }
-  }
-
-  // Create a new table element
-  let table = document.createElement("table");
-  table.style.borderRadius = "0px";
-  table.style.fontSize = "12px"; // set font size for the table
-  table.style.cellPadding = "5px"; // set cell padding for the table
-
-  // Create a new row element for the header row
-  let headerRow = document.createElement("tr");
-  headerRow.style.backgroundColor = "#007bff";
-
-  // Loop through the header column names and create the header cells
-  for (let i = 0; i < headerColumns.length; i++) {
-      let headerCell = document.createElement("th");
-      headerCell.textContent = headerColumns[i];
-      headerCell.style.color = "#fff";
-      if (i === 0) {
-          headerCell.style.minWidth = "50px"; // set width for "Topic" cell
-      }
-      headerRow.appendChild(headerCell);
-  }
-
-  // Add the header row to the table
-  table.appendChild(headerRow);
-
-  // Create an array of table data objects
-  let tableData = [];
-  for (let i = 0; i < numRows; i++) {
-      let rowData = { topic: "Topic " + (i + 1) };
-      for (let j = 1; j < numCols; j++) {
-          rowData["column" + j] = "T " + (i + 1) + " C " + j;
-      }
-      tableData.push(rowData);
-  }
-
-  // Loop through the table data and create the rows and cells
-  for (let i = 0; i < tableData.length; i++) {
-      let rowData = tableData[i];
-      let row = document.createElement("tr");
-
-      // Loop through the keys in the row data and create the cells
-      for (let key in rowData) {
-          let cell = document.createElement("td");
-          cell.textContent = rowData[key];
-          cell.style.height = "20px"; // set height for each cell
-          row.appendChild(cell);
-      }
-
-      // Add the row to the table
-      table.appendChild(row);
-  }
-
-  // Add the table to the document
-  document.body.appendChild(table);
-}
+    fetch('https://exquisite-pastelito-9d4dd1.netlify.app/golfapi/course11819.json')
+        .then(response => response.json())
+        .then(data => {
+            let table = document.getElementById('scorecard');
+            let headerRow = table.insertRow(0);
+            let holeHeaderCell = headerRow.insertCell(0);
+            holeHeaderCell.innerHTML = 'Hole #';
+            for (let i = 1; i <= data.holes.length; i++) {
+                let cell = headerRow.insertCell(i);
+                cell.innerHTML = 'Hole ' + i;
+            }
+            data.holes[0].teeBoxes.forEach((teeBox, index) => {
+                let row = table.insertRow(-1);
+                let cell = row.insertCell(0);
+                cell.innerHTML = teeBox.teeType;
+                if (index === 0) {
+                    cell.classList.add('pro');
+                }
+                if (index === 2) {
+                    cell.classList.add('men-header');
+                }
+                data.holes.forEach((hole, i) => {
+                    let cell = row.insertCell(-1);
+                    cell.innerHTML = hole.teeBoxes[index].yards + ' yds';
+                    if(hole.teeBoxes[index].teeHexColor) {
+                        cell.style.backgroundColor = hole.teeBoxes[index].teeHexColor;
+                        cell.style.color = '#ffffff';
+                    }
+                    if (index === 2) {
+                        cell.style.color = 'blue';
+                    }
+                });
+            });
+            let row = table.insertRow(-1);
+            let cell = row.insertCell(0);
+            cell.innerHTML = 'Par';
+            data.holes.forEach((hole, i) => {
+                let cell = row.insertCell(-1);
+                cell.innerHTML = 'Par ' + hole.teeBoxes[0].par;
+            });
+        })
+        .catch(error => console.error('Error:', error));
+};
