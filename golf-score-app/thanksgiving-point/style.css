@@ -11,7 +11,7 @@ h1 {
 
 #scorecard {
     width: 100%;
-    max-width: 600px;
+    max-width: 800px;
     margin: 0 auto;
     border-collapse: collapse;
     table-layout: fixed;
@@ -21,7 +21,7 @@ h1 {
     border: 1px solid #ccc;
     padding: 10px;
     text-align: center;
-    width: 100px;
+    width: 80px;
 }
 
 .pro {
@@ -41,7 +41,7 @@ input[type=number] {
 }
 
 input[type=text] {
-    width: 90px;
+    width: 80px;
 }
 
 button {
