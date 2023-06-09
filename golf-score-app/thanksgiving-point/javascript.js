@@ -37,8 +37,6 @@ window.onload = function() {
                         cell.style.color = 'blue';
                     }
                 });
-
-                // Add row for handicap
                 let hcpRow = table.insertRow(-1);
                 let hcpCell = hcpRow.insertCell(0);
                 hcpCell.innerHTML = 'Handicap';
