@@ -37,6 +37,15 @@ window.onload = function() {
                         cell.style.color = 'blue';
                     }
                 });
+
+                // Add row for handicap
+                let hcpRow = table.insertRow(-1);
+                let hcpCell = hcpRow.insertCell(0);
+                hcpCell.innerHTML = 'Handicap';
+                data.holes.forEach((hole, i) => {
+                    let cell = hcpRow.insertCell(-1);
+                    cell.innerHTML = hole.teeBoxes[index].hcp;
+                });
             });
 
             let row = table.insertRow(-1);
@@ -65,8 +74,10 @@ function addUser() {
     if (playerCount >= 4) {
         return;
     }
-    let route = prompt("Please enter your route: pro, champion, men, women");
+
+    let route = document.getElementById('userSelect').value;
     let color;
+
     switch(route) {
         case "pro":
             color = "#443C30";
@@ -84,6 +95,7 @@ function addUser() {
             color = "white";
             break;
     }
+
     playerCount++;
     let table = document.getElementById('scorecard');
     let playerName = 'Player ' + playerCount;
@@ -106,6 +118,7 @@ function addUser() {
     totalCell.id = 'total-' + playerCount;
     totalCell.style.backgroundColor = color;
     document.getElementById('total-' + playerCount).innerText = playerName + ' Total: 0';
+
     if (playerCount >= 4) {
         document.getElementById('addUserButton').disabled = true;
     }

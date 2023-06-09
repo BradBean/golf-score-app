@@ -6,11 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thanksgiving Point Golf Course Scorecard</title>
     <link rel="stylesheet" type="text/css" href="style.css">
-    <script src="javascript.js"></script>
+    <script src="javascript.js" defer></script>
 </head>
 <body>
     <h1>Thanksgiving Point Golf Course Scorecard</h1>
     <table id="scorecard"></table>
-    <button id="addUserButton" onclick="addUser()">Add User</button>
+    <div>
+      <button id="addUserButton" onclick="addUser()">Add User</button>
+      <select id="userSelect">
+        <option value="pro">Pro</option>
+        <option value="champion">Champion</option>
+        <option value="men">Men</option>
+        <option value="women">Women</option>
+      </select>
+    </div>
 </body>
 </html>
